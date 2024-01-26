@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+
+        #chart-container {
+            position: relative;
+            width: 500px;
+            height: 250px;
+            background-color: #333;;
+            overflow: hidden;
+            border: 8px solid #333; /* Add border with a dark color */
+}
+
+
+        .bar {
+            position: absolute;
+            bottom: 0;
+            width: 100px;
+            background-color: #481b96;
+            transition: height 0.5s;
+            height: 300px;
+        }
+
+        .bar:nth-child(2) {
+            background-color: #c12377;
+            left: 100px;
+        }
+
+        .bar:nth-child(3) {
+            background-color: #d36138;
+            left: 200px;
+        }
+
+        .bar:nth-child(4) {
+            background-color: #ef7a0b;
+            left: 300px;
+        }
+
+        .bar:nth-child(5) {
+            background-color: #e2b607;
+            left: 400px;
+        }
+
+button {
+    position: absolute;
+    bottom: 10px;
+    cursor: pointer; 
+}
+
+#startButton {
+    left: 580px;
+    bottom: 190px;
+    background-color: rgba(10, 163, 10, 0.985);
+    color: white;
+    transform: translateX(-50%);
+}
+
+#resetButton {
+    left: 750px;
+    bottom: 190px;
+    background-color: #561399;
+    color: white;
+    transform: translateX(-50%);
+}
+
+#stopButton {
+    left: 940px;
+    bottom: 190px;
+    background-color: rgb(194, 31, 31);
+    color: white;
+    transform: translateX(-50%);
+}
+
+
+    </style>
+</head>
+<body>
+
+<div id="chart-container">
+    <div class="bar" style="height: 150px;"></div>
+    <div class="bar" style="height: 100px;"></div>
+    <div class="bar" style="height: 200px;"></div>
+    <div class="bar" style="height: 120px;"></div>
+    <div class="bar" style="height: 80px;"></div>
+</div>
+
+
+<script>
+    let animationInterval;
+    let animationRunning = false;
+    let initialHeight = 300; 
+
+    function startAnimation() {
+        if (!animationRunning) {
+            resetGraph(); 
+            animationInterval = setInterval(() => {
+                changeGraph();
+            }, 1000); 
+            animationRunning = true;
+        }
+    }
+
+    function stopAnimation() {
+        clearInterval(animationInterval);
+        animationRunning = false;
+    }
+
+    function resetGraph() {
+        stopAnimation(); 
+        const bars = document.getElementsByClassName('bar');
+        for (var i = 0; i < bars.length; i++) {
+            bars[i].style.height = initialHeight + 'px';
+        }
+    }
+
+    function changeGraph() {
+        var bars = document.getElementsByClassName('bar');
+        for (var i = 0; i < bars.length; i++) {
+            
+            bars[i].style.height = Math.floor(Math.random() * 270) + 'px';
+        }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        resetGraph();
+    });
+</script>
+
+
+
+
+
+
+
+<span>
+<button id="startButton" onclick="startAnimation()">Start</button>
+<button id="resetButton" onclick="resetGraph()">Reset</button>
+<button id="stopButton" onclick="stopAnimation()">Stop</button>
+</span>
+</body>
+</html>
